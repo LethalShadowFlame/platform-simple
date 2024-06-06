@@ -13,11 +13,28 @@
       var Player = {
         x: 0,
         y: 0,
+        w: 50,
+        h: 50,
+        speed: 4,
+        yvel: 0,
         render: function() {
           ctx.fillStyle = "blue";
-          ctx.fillRect(this.x - Camera.x, this.y - Camera.y, 50,50);
-          this.x += (BoolToNumber.Or(Keys["d"], Keys["ArrowRight"])) - BoolToNumber.Or(Keys["a"], Keys["ArrowLeft"]);
-          this.y += (BoolToNumber.Or(Keys["s"], Keys["ArrowDown"])) - BoolToNumber.Or(Keys["w"], Keys["ArrowUp"]);
+          ctx.fillRect(this.x - Camera.x, this.y - Camera.y, this.w,this.h);
+          this.x += (BoolToNumber.Or(Keys["d"], Keys["ArrowRight"]))* this.speed - BoolToNumber.Or(Keys["a"], Keys["ArrowLeft"]) * this.speed;
+          if (GameState.jump) {
+            this.y += this.yvel
+            if (this.y > (GameCanvas.height - this.h)) {//Condition to be added - If touching any object
+              this.yvel = 0;
+              if (Keys["w"] || Keys["ArrowUp"]) {
+                this.yvel -= 15;
+              };
+              this.y = (GameCanvas.height - this.h)
+            } else {
+              this.yvel += 1
+            };
+          } else {
+            this.y += (BoolToNumber.Or(Keys["s"], Keys["ArrowDown"])* this.speed) - BoolToNumber.Or(Keys["w"], Keys["ArrowUp"]) * this.speed;
+          };
           Camera.update();
         }
       }
@@ -51,6 +68,9 @@
         ArrowUp: 0,
         ArrowDown: 0
       };
+      var GameState = {
+        jump: true,
+      }
       //Listeners
       document.addEventListener("keydown", (event) => {
         if (!(Keys[event.key] == undefined)) {
@@ -68,6 +88,7 @@
       });
       document.onclick = () => {
         //Find Distance to player and update keys properly
+        //Plans for mobile
       };
       //Gameloop
       function Frame() {
