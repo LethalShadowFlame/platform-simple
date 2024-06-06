@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Test - Game</title>
@@ -8,13 +9,12 @@
       //Coding here because I'm too lazy to exit out and create a new javascript file
       const GameCanvas = document.getElementById("Game");
       const ctx = GameCanvas.getContext("2d");
-      
       var Player = {
-        x: 0,
-        y: 0,
+        x: 100,
+        y: 100,
         render: function() {
           ctx.fillStyle = "blue";
-          ctx.fillRect(this.x - Camera.x, this.y - Camera.y, 50, 50);
+          ctx.fillRect(this.x - Camera.x, this.y - Camera.y, 50,50);
           Camera.update();
         }
       }
@@ -22,12 +22,33 @@
         x: 0,
         y: 0,
         update: function() {
-          this.x = Player.x - ((window.InnerWidth)/2);
-          this.y = Player.y - ((window.InnerHeight)/2);
+          // Follow the player
+          // this.x = Player.x;
+          // this.y = Player.y;
+          //For testing restrict to 0,0 so don't update :)
           //Restrict camera view here
         }
       }
+      var Keys = {
+        a: false,
+        d: false,
+        w: false,
+        s: false
+      };
+      //Listeners
+      document.addEventListener("keydown", (event) => {
+        if (!(Keys[event.key] == undefined)) {
+          Keys[event.key] = true;
+        };
+      });
+      document.addEventListener("keyup", (event) => {
+        if (!(Keys[event.key] == undefined)) {
+          Keys[event.key] = false;
+        };
+      });
+      //Gameloop
       function Frame() {
+        ctx.clearRect(0, 0, GameCanvas.width, GameCanvas.height);
         Player.render();
         requestAnimationFrame(Frame);
       };
