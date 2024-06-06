@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Test - Game</title>
+  </head>
+  <body>
+    <canvas id="Game"></canvas>
+    <script>
+      //Coding here because I'm too lazy to exit out and create a new javascript file
+      const GameCanvas = document.getElementById("Game");
+      const ctx = GameCanvas.getContext("2d");
+
+      //Init the Canvas size
+      GameCanvas.width = window.InnerWidth;
+      GameCanvas.width = window.InnerHeight;
+      
+      var Player = {
+        x: 0,
+        y: 0,
+        render: function() {
+          ctx.fillRect(this.x - Camera.x, this.y - Camera.y, 40, 60);
+        }
+      }
+      var Camera = {
+        x: 0,
+        y: 0,
+        update: function() {
+          this.x = Player.x;
+          this.y = Player.y;
+          //Restrict camera view here
+        }
+      }
+      function Frame() {
+        requestAnimationFrame(Frame);
+      };
+      Frame()
+    </script>
+  </body>
+</html>
