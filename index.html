@@ -18,6 +18,7 @@
         y: 0,
         render: function() {
           ctx.fillRect(this.x - Camera.x, this.y - Camera.y, 40, 60);
+          Camera.update();
         }
       }
       var Camera = {
@@ -30,6 +31,7 @@
         }
       }
       function Frame() {
+        Player.render();
         requestAnimationFrame(Frame);
       };
       Frame()
