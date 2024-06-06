@@ -10,11 +10,13 @@
       const GameCanvas = document.getElementById("Game");
       const ctx = GameCanvas.getContext("2d");
       var Player = {
-        x: 100,
-        y: 100,
+        x: 0,
+        y: 0,
         render: function() {
           ctx.fillStyle = "blue";
           ctx.fillRect(this.x - Camera.x, this.y - Camera.y, 50,50);
+          this.x += (Keys["d"] - Keys["a"]);
+          this.y += (Keys["s"] - Keys["w"]);
           Camera.update();
         }
       }
@@ -28,22 +30,22 @@
           //For testing restrict to 0,0 so don't update :)
           //Restrict camera view here
         }
-      }
+      };
       var Keys = {
-        a: false,
-        d: false,
-        w: false,
-        s: false
+        a: 0,
+        d: 0,
+        w: 0,
+        s: 0
       };
       //Listeners
       document.addEventListener("keydown", (event) => {
         if (!(Keys[event.key] == undefined)) {
-          Keys[event.key] = true;
+          Keys[event.key] = 1;
         };
       });
       document.addEventListener("keyup", (event) => {
         if (!(Keys[event.key] == undefined)) {
-          Keys[event.key] = false;
+          Keys[event.key] = 0;
         };
       });
       //Gameloop
