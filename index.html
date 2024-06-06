@@ -4,11 +4,12 @@
     <title>Test - Game</title>
   </head>
   <body>
-    <canvas id="Game" style="width:100%;height:100%;"></canvas>
-    <script>
-      //Coding here because I'm too lazy to exit out and create a new javascript file
+    <canvas id="Game" style="position: absolute;top: 0;left: 0;"></canvas>
+    <script>//Coding here because I'm too lazy to exit out and create a new javascript file
       const GameCanvas = document.getElementById("Game");
       const ctx = GameCanvas.getContext("2d");
+      GameCanvas.width = window.innerWidth;
+      GameCanvas.height = window.innerHeight;
       var Player = {
         x: 0,
         y: 0,
