@@ -21,6 +21,15 @@ var Player = {
         return true;
       }
       return false;
+    },
+    checkAll: function() {
+      for (let i=Game.Objects.length-1;i>-1;i--) {
+        console.log(i);
+        if (Player.Touching.check(i) == true) {
+          return true;
+        }
+      }
+      return false;
     }
   },
   moveCollision: function(amount,x) {
@@ -29,7 +38,7 @@ var Player = {
     if (!(at == NaN)) {
       for (i = 0; i < Math.abs(amount); i++) {
         this[BoolToNumber[BoolToNumber[x]]] += at;
-        if (this.Touching.check(0)) { 
+        if (this.Touching.checkAll()) { 
           this[BoolToNumber[BoolToNumber[x]]] -= at;
           return true;
         };
@@ -102,9 +111,15 @@ Game.State = {
 }
 Game.Objects = [
   {
-    x: 100,
+    x: 0,
     y: 775,
-    w: 50,
+    w: 400,
+    h: 50,
+  },
+  {
+    x: 500,
+    y: 765,
+    w: 200,
     h: 50,
   },
   {
