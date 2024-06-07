@@ -11,4 +11,3 @@ Play here: (link not avaible yet)
 ### Known bugs
  - Camera not functional (broke when collision was added)
  - Collision does not work on top down mode
- - Player can cling to walls by pressing left or right while falling.

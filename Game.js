@@ -50,17 +50,11 @@ var Player = {
     ctx.fillRect(this.x - Camera.x, this.y - Camera.y, this.w,this.h);
     let KEYX = (BoolToNumber.Or(Keys["d"], Keys["ArrowRight"])- BoolToNumber.Or(Keys["a"], Keys["ArrowLeft"]));
     let KEYY = (BoolToNumber.Or(Keys["s"], Keys["ArrowDown"]) - BoolToNumber.Or(Keys["w"], Keys["ArrowUp"]));
-    let touched = false;
     if (Math.abs(KEYX) == 1) {
-      touched = this.moveCollision(KEYX * this.speed, true);
+      this.moveCollision(KEYX * this.speed, true);
     }
     if (Game.State.jump) {
-      if (touched == false) {
-        touched = this.moveCollision(this.yvel, false);
-      } else {
-        this.moveCollision(this.yvel, false);
-      }
-      if (touched) {//Condition to be added - If touching any object
+      if (this.moveCollision(this.yvel, false)) {//Condition to be added - If touching any object
         this.yvel = 0;
         if (KEYY == -1) {
           this.yvel -= 15;
@@ -124,7 +118,7 @@ Game.Objects = [
   },
   {
     x: 150,
-    y: 100,
+    y: 725,
     w: 50,
     h: 50,
   },
