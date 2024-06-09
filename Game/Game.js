@@ -1,7 +1,6 @@
 var Game = {};
 Game.Canvas = document.getElementById("Game");
 const ctx = Game.Canvas.getContext("2d");
-ctx.fillStyle = "black";
 Game.Canvas.width = window.innerWidth;
 Game.Canvas.height = window.innerHeight;
 var Player = {
@@ -122,6 +121,12 @@ Game.Objects = [
     w: 50,
     h: 50,
   },
+  {
+    x: 500,
+    y: 650,
+    w: 200,
+    h: 50,
+  },
 ];
 Game.Objects.render = function() {
   for (var obj of this) {
@@ -150,7 +155,9 @@ document.onclick = () => {
 //Gameloop
 function Frame() {
   ctx.clearRect(0, 0, Game.Canvas.width, Game.Canvas.height);
+  ctx.fillStyle = "blue";
   Player.render();
+  ctx.fillStyle = "black";
   Game.Objects.render();
   requestAnimationFrame(Frame);
 };
