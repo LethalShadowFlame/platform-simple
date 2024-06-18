@@ -6,7 +6,7 @@ Still a work in progress and I am not sure how I want this to evolve/finish.
 
 If you would like to contribute (fix a bug, add a feature, optimize, etc.) then fork the repo, make your changes, and then sumbit a pull request.
 
-Play here: (link not avaible yet)
+Play here: [(Click)](https://lethalshadowflame.github.io/platform-simple/Game/)
 
 ### Known bugs
  - Head sticks to ceiling (possible feature)
