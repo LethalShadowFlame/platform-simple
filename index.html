@@ -1,12 +1,22 @@
-<html lang="en>
+<html lang="en">
   <head>
-  <title>Redirecting</title
+  <title>Redirecting</title>
   </head>
   <body>
     <p>Redirecting you to the main site</p>
   <script> //Just a simple redirect, no need for a seperate javascript file
   var loc = window.location;
-  loc.replace(loc.protocol + loc.hostname + "/game");
+  var joined = [];
+  var final = [];
+  for (var item of Array.from(loc.pathname + "/")) {
+    if (item == "/") {
+      final.push(joined.join(""));
+      joined = [];
+    } else {
+      joined.push(item);
+    }
+  };
+  loc.replace(loc.protocol + loc.hostname + final[0] + "/game");
   </script>
   </body>
 </html>

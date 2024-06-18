@@ -10,20 +10,21 @@ var Player = {
   h: 50,
   speed: 4,
   yvel: 0,
+  headbump: false,
   Touching: {
     check: function(idx) {
       let obj = Game.Objects[idx];
       if ((obj.x < Player.x + Player.w) && 
           (obj.x + obj.w > Player.x) &&
-          (obj.y < Player.y + Player.h) && 
-          (obj.y + obj.h > Player.y)) {
+          (obj.y < Player.y + Player.h) &&
+          (obj.y + obj.h > Player.y)) 
+          {
         return true;
       }
       return false;
     },
     checkAll: function() {
       for (let i=Game.Objects.length-1;i>-1;i--) {
-        console.log(i);
         if (Player.Touching.check(i) == true) {
           return true;
         }
@@ -31,6 +32,13 @@ var Player = {
       return false;
     }
   },
+/**
+ * Moves the player, but detects collision along the way.
+ *
+ * @param   amount  The amount to move.
+ * @param   x  If true, the action will be preformed on the X-Axis; False and it will be done on the Y-axis.
+ * @returns Whether it touched something in the proccess or not.
+ */
   moveCollision: function(amount,x) {
     let at = (amount/Math.abs(amount));
     let i;
@@ -53,9 +61,9 @@ var Player = {
       this.moveCollision(KEYX * this.speed, true);
     }
     if (Game.State.jump) {
-      if (this.moveCollision(this.yvel, false)) {//Condition to be added - If touching any object
+      if (this.moveCollision(this.yvel, false)) {
         this.yvel = 0;
-        if (KEYY == -1) {
+        if ((KEYY == -1) && (this.headbump == false)) {
           this.yvel -= 15;
         };
       } else {
@@ -74,7 +82,6 @@ var Camera = {
     // Follow the player
     this.x = Player.x - (Game.Canvas.width/2);
     this.y = Player.y - (Game.Canvas.height/2);
-    //Restrict camera view here
   }
 };
 var BoolToNumber = {
@@ -117,7 +124,7 @@ Game.Objects = [
   },
   {
     x: 150,
-    y: 725,
+    y: 625,
     w: 50,
     h: 50,
   },
