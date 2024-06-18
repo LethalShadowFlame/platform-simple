@@ -72,8 +72,8 @@ var Camera = {
   y: 0,
   update: function() {
     // Follow the player
-    //this.x = Player.x - (Game.Canvas.width/2);
-    //this.y = Player.y - (Game.Canvas.height/2);
+    this.x = Player.x - (Game.Canvas.width/2);
+    this.y = Player.y - (Game.Canvas.height/2);
     //Restrict camera view here
   }
 };
