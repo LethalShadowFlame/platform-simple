@@ -3,29 +3,27 @@ Game.Canvas = document.getElementById("Game");
 const ctx = Game.Canvas.getContext("2d");
 Game.Canvas.width = window.innerWidth;
 Game.Canvas.height = window.innerHeight;
+function touching(obj1,obj2) {
+  if ((obj1.x < obj2.x + obj2.width) && 
+      (obj1.x + obj1.width > obj2.x) &&
+      (obj1.y < obj2.y + obj2.height) &&
+      (obj1.y + obj1.height > obj2.y)) {
+    return true;
+  }
+  return false;
+};
 var Player = {
   x: 0,
   y: 0,
-  w: 50,
-  h: 50,
+  width: 50,
+  height: 50,
   speed: 4,
   yvel: 0,
   headbump: false,
   Touching: {
-    check: function(idx) {
-      let obj = Game.Objects[idx];
-      if ((obj.x < Player.x + Player.w) && 
-          (obj.x + obj.w > Player.x) &&
-          (obj.y < Player.y + Player.h) &&
-          (obj.y + obj.h > Player.y)) 
-          {
-        return true;
-      }
-      return false;
-    },
     checkAll: function() {
-      for (let i=Game.Objects.length-1;i>-1;i--) {
-        if (Player.Touching.check(i) == true) {
+      for (let i of Game.Objects) {
+        if (touching(Player, i) == true) {
           return true;
         }
       }
@@ -54,7 +52,7 @@ var Player = {
     }
   },
   render: function() {
-    ctx.fillRect(this.x - Camera.x, this.y - Camera.y, this.w,this.h);
+    ctx.fillRect(this.x - Camera.x, this.y - Camera.y, this.width,this.height);
     let KEYX = (BoolToNumber.Or(Keys["d"], Keys["ArrowRight"])- BoolToNumber.Or(Keys["a"], Keys["ArrowLeft"]));
     let KEYY = (BoolToNumber.Or(Keys["s"], Keys["ArrowDown"]) - BoolToNumber.Or(Keys["w"], Keys["ArrowUp"]));
     if (Math.abs(KEYX) == 1) {
@@ -67,7 +65,9 @@ var Player = {
           this.yvel -= 15;
         };
       } else {
-        this.yvel += 1
+        if (this.yvel < 26) {
+          this.yvel += 1
+        }
       };
     } else {
       this.moveCollision(KEYY * this.speed, false);
@@ -78,6 +78,8 @@ var Player = {
 var Camera = {
   x: 0,
   y: 0,
+  width: window.innerWidth,
+  height: window.innerHeight,
   update: function() {
     // Follow the player
     this.x = Player.x - (Game.Canvas.width/2);
@@ -113,31 +115,33 @@ Game.Objects = [
   {
     x: 0,
     y: 775,
-    w: 400,
-    h: 50,
+    width: 400,
+    height: 50,
   },
   {
     x: 500,
     y: 765,
-    w: 200,
-    h: 50,
+    width: 200,
+    height: 50,
   },
   {
     x: 150,
     y: 625,
-    w: 50,
-    h: 50,
+    width: 50,
+    height: 50,
   },
   {
     x: 500,
     y: 650,
-    w: 200,
-    h: 50,
+    width: 200,
+    height: 50,
   },
 ];
 Game.Objects.render = function() {
   for (var obj of this) {
-    ctx.fillRect(obj.x - Camera.x, obj.y - Camera.y, obj.w,obj.h);
+    if (touching(obj, Camera)) {
+      ctx.fillRect(obj.x - Camera.x, obj.y - Camera.y, obj.width,obj.height);
+    }
   };
 }
 //Listeners
@@ -154,6 +158,8 @@ document.addEventListener("keyup", (event) => {
 document.addEventListener("resize", () => {
   Game.Canvas.width = window.innerWidth;
   Game.Canvas.height = window.innerHeight;
+  Game.Camera.width = window.innerWidth;
+  Game.Camera.height = window.innerHeight;
 });
 document.onclick = () => {
   //Find Distance to player and update keys properly
