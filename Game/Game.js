@@ -30,13 +30,6 @@ var Player = {
       return false;
     }
   },
-/**
- * Moves the player, but detects collision along the way.
- *
- * @param   amount  The amount to move.
- * @param   x  If true, the action will be preformed on the X-Axis; False and it will be done on the Y-axis.
- * @returns Whether it touched something in the proccess or not.
- */
   moveCollision: function(amount,x) {
     let at = (amount/Math.abs(amount));
     let i;
@@ -45,6 +38,10 @@ var Player = {
         this[BoolToNumber[BoolToNumber[x]]] += at;
         if (this.Touching.checkAll()) { 
           this[BoolToNumber[BoolToNumber[x]]] -= at;
+          if ((at < 0) && (x == false)) {
+            this.yvel = -1;
+            return false;
+          }
           return true;
         };
       };
@@ -113,30 +110,55 @@ Game.State = {
 }
 Game.Objects = [
   {
-    x: 0,
-    y: 775,
-    width: 400,
-    height: 50,
-  },
-  {
-    x: 500,
-    y: 765,
-    width: 200,
-    height: 50,
-  },
-  {
-    x: 150,
-    y: 625,
+    x: -250,
+    y: 205,
     width: 50,
-    height: 50,
+    height: 660,
+  },
+  {
+    x: -50,
+    y: 205,
+    width: 40,
+    height: 400,
+  },
+  {
+    x: -200,
+    y: 765,
+    width: 570,
+    height: 100,
   },
   {
     x: 500,
-    y: 650,
+    y: 685,
     width: 200,
+    height: 400,
+  },
+  {
+    x: 820,
+    y: 665,
+    width: 100,
     height: 50,
+  },
+  {
+    x: 860,
+    y: 900,
+    width: 650,
+    height: 50,
+  },
+  {
+    x: 1500,
+    y: 1100,
+    width: 650,
+    height: 50,
+  },
+  {
+    x: 2300,
+    y: 1090,
+    width: 100,
+    height: 100,
   },
 ];
+
 Game.Objects.render = function() {
   for (var obj of this) {
     if (touching(obj, Camera)) {
@@ -174,4 +196,5 @@ function Frame() {
   Game.Objects.render();
   requestAnimationFrame(Frame);
 };
+
 Frame()

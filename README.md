@@ -7,7 +7,7 @@ Still a work in progress and I am not sure how I want this to evolve/finish.
 Play here: [(Click)](https://lethalshadowflame.github.io/platform-simple/Game/)
 
 ### Known bugs
- - Head sticks to ceiling (possible feature)
+ - Currently no known bugs.
 
 ### Contributing
  - If you would like to help out in terms of coding, create a PR with your changes.
