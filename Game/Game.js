@@ -70,6 +70,15 @@ var Player = {
       this.moveCollision(KEYY * this.speed, false);
     };
     Camera.update();
+    if (Keys["r"] == true) {
+      if (Game.state.hasReset == false) {
+        Game.state.hasReset = true
+        Player.x = 0
+        Player.y = 0
+      }
+    } else {
+      Game.state.hasReset = false;
+    }
   }
 }
 var Camera = {
@@ -100,6 +109,7 @@ var Keys = {
   d: 0,
   w: 0,
   s: 0,
+  r: 0,
   ArrowLeft: 0,
   ArrowRight: 0,
   ArrowUp: 0,
@@ -107,6 +117,7 @@ var Keys = {
 };
 Game.State = {
   jump: true,
+  hasReset: false
 }
 Game.Objects = [
   {
