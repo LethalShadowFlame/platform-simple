@@ -4,19 +4,16 @@
   </head>
   <body>
     <p>Redirecting you to the main site</p>
-  <script> //Just a simple redirect, no need for a seperate javascript file
+<script>
   var loc = window.location;
-  var joined = [];
-  var final = [];
-  for (var item of Array.from(loc.pathname + "/")) {
-    if (item == "/") {
-      final.push(joined.join(""));
-      joined = [];
-    } else {
-      joined.push(item);
-    }
-  };
-  loc.replace(loc.protocol + loc.hostname + final[0] + "/game");
-  </script>
+  var pathSegments = loc.pathname.split("/").filter(s => s); // remove empty parts
+
+  var firstSegment = pathSegments.length > 0 ? pathSegments[0] : "";
+
+  var newUrl = loc.protocol + "//" + loc.hostname + "/" + firstSegment + "/Game";
+
+  loc.replace(newUrl);
+</script>
+
   </body>
 </html>
