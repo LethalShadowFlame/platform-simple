@@ -12,6 +12,10 @@ function touching(obj1,obj2) {
   }
   return false;
 };
+Game.State = {
+  jump: true,
+  hasReset: false
+}
 var Player = {
   x: 0,
   y: 0,
@@ -115,10 +119,7 @@ var Keys = {
   ArrowUp: 0,
   ArrowDown: 0
 };
-Game.State = {
-  jump: true,
-  hasReset: false
-}
+
 Game.Objects = [
   {
     x: -250,
