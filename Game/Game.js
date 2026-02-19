@@ -37,7 +37,7 @@ var Player = {
   moveCollision: function(amount,x) {
     let at = (amount/Math.abs(amount));
     let i;
-    if (!(at == NaN)) {
+    if (!isNaN(at)) {
       for (i = 0; i < Math.abs(amount); i++) {
         this[BoolToNumber[BoolToNumber[x]]] += at;
         if (this.Touching.checkAll()) { 
@@ -75,13 +75,13 @@ var Player = {
     };
     Camera.update();
     if (Keys["r"] == true) {
-      if (Game.state.hasReset == false) {
-        Game.state.hasReset = true
+      if (Game.State.hasReset == false) {
+        Game.State.hasReset = true
         Player.x = 0
         Player.y = 0
       }
     } else {
-      Game.state.hasReset = false;
+      Game.State.hasReset = false;
     }
   }
 }
@@ -96,6 +96,7 @@ var Camera = {
     this.y = Player.y - (Game.Canvas.height/2);
   }
 };
+Game.Camera = Camera
 var BoolToNumber = {
   true: 1,
   false: 0,
